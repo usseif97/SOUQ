@@ -17,7 +17,7 @@ class AppCubit extends Cubit<AppStates> {
     } else {
       // there's no cache --> cache the light mode (used on pressing the toggle button)
       isDark = !isDark;
-      CacheHelper.putData(key: 'isDark', value: isDark).then((value) {
+      CacheHelper.saveData(key: 'isDark', value: isDark).then((value) {
         emit(AppChangemode());
       });
     }

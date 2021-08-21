@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:souq/layout/home_layout.dart';
 import 'package:souq/modules/authentication/register_screen.dart';
 import 'package:souq/shared/components/components.dart';
 import 'package:souq/shared/cubit/login_cubit.dart';
 import 'package:souq/shared/cubit/login_states.dart';
+import 'package:souq/shared/network/local/cache_hlper.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -21,26 +23,29 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccessState) {
             if (state.loginModel.status) {
-              final snackBar = SnackBar(
-                content: Text(state.loginModel.message),
-                action: SnackBarAction(
-                  label: 'Sucess',
-                  textColor: Colors.green,
-                  onPressed: () {},
-                ),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              // Login Success
+              CacheHelper.saveData(
+                key: 'token',
+                value: state.loginModel.data!.token,
+              ).then((value) {
+                navigateToAndFinish(context, HomeLayout());
+              });
             } else {
-              final snackBar = SnackBar(
-                content: Text(state.loginModel.message),
-                action: SnackBarAction(
-                  label: 'Error',
-                  textColor: Colors.red,
-                  onPressed: () {},
-                ),
+              // Login Fall
+              showSnackBar(
+                context: context,
+                content: state.loginModel.message,
+                label: 'Error',
+                state: snackBarStates.ERROR,
               );
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
+          } else if (state is LoginErrorState) {
+            showSnackBar(
+              context: context,
+              content: 'Network Error !!',
+              label: 'Error',
+              state: snackBarStates.ERROR,
+            );
           }
         },
         builder: (context, state) {

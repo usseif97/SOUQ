@@ -129,3 +129,41 @@ void navigateToAndFinish(context, widget) => Navigator.pushAndRemoveUntil(
       ),
       (route) => false,
     );
+
+enum snackBarStates { SUCCESS, ERROR, WARNING }
+Color snackBarColor(snackBarStates state) {
+  Color color;
+  switch (state) {
+    case snackBarStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case snackBarStates.ERROR:
+      color = Colors.red;
+      break;
+    case snackBarStates.WARNING:
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}
+
+void showSnackBar({
+  required BuildContext context,
+  required String content,
+  required String label,
+  required snackBarStates state,
+  Function? onpressed,
+}) =>
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: snackBarColor(state),
+        content: Text(content),
+        action: SnackBarAction(
+          label: label,
+          onPressed: () {
+            if (onpressed != null) onpressed();
+          },
+          textColor: Colors.white,
+        ),
+      ),
+    );

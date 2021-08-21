@@ -6,19 +6,19 @@ ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   primarySwatch: defaultColor,
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.white,
+    backgroundColor: defaultColor,
     elevation: 0.0,
     iconTheme: IconThemeData(
-      color: Colors.black,
+      color: Colors.white,
     ),
     titleTextStyle: TextStyle(
-      color: Colors.black,
-      fontSize: 20.0,
+      color: Colors.white,
+      fontSize: 40.0,
       fontWeight: FontWeight.bold,
     ),
     backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
+      statusBarColor: defaultColor,
     ),
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -26,7 +26,7 @@ ThemeData lightTheme = ThemeData(
     backgroundColor: Colors.white,
     selectedItemColor: defaultColor,
     unselectedItemColor: Colors.black,
-    elevation: 0.0,
+    elevation: 20.0,
   ),
   textTheme: TextTheme(
     bodyText1: TextStyle(
@@ -65,7 +65,7 @@ ThemeData darkTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     backgroundColor: Colors.black,
-    elevation: 0.0,
+    elevation: 20.0,
     selectedItemColor: defaultColor,
     unselectedItemColor: Colors.white,
   ),
