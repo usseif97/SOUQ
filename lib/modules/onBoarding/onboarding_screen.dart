@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:souq/models/boarding_model.dart';
 import 'package:souq/modules/authentication/login_screen.dart';
 import 'package:souq/shared/components/components.dart';
@@ -28,7 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       body: 'On Board 2 body',
     ),
     BoardingModel(
-      image: 'assets/images/onboard_1.png',
+      image: 'assets/images/onboard_3.png',
       title: 'On Board 3 title',
       body: 'On Board 3 body',
     ),
@@ -49,6 +50,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         actions: [
           defaultTextButton(
               function: () {
@@ -56,6 +58,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               },
               text: 'skip'),
         ],
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarBrightness: Brightness.dark,
+          statusBarIconBrightness: Brightness.dark,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),

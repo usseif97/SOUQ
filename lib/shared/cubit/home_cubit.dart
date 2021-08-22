@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:souq/models/categories_model.dart';
 import 'package:souq/models/home_model.dart';
 import 'package:souq/modules/categories/categories_screen.dart';
 import 'package:souq/modules/favourites/favourites_screen.dart';
@@ -58,7 +59,7 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   // Handling HomeData API
-  late HomeModel homeModel;
+  HomeModel? homeModel;
   void getHomeData() {
     emit(HomeLoadingHomeDataState());
     DioHelper.getData(
@@ -66,11 +67,27 @@ class HomeCubit extends Cubit<HomeStates> {
       token: token,
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
-      print(homeModel.status);
+      print(homeModel!.status);
       //printFullText(homeModel.toString());
       emit(HomeSuccessHomeDataState());
     }).catchError((error) {
       emit(HomeErrorHomeDataState(error.toString()));
+    });
+  }
+
+  // Handling HomeCategories API
+  CategoriesModel? categoriesModel;
+  void getHomeCategories() {
+    emit(HomeLoadingCategoriesState());
+    DioHelper.getData(
+      url: GET_CATEGORIES,
+    ).then((value) {
+      categoriesModel = CategoriesModel.fromJson(value.data);
+      print(categoriesModel!.status);
+      //printFullText(categoriesModel.toString());
+      emit(HomeSuccessCategoriesState());
+    }).catchError((error) {
+      emit(HomeErrorCategoriesState(error.toString()));
     });
   }
 }

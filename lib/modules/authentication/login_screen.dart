@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:souq/layout/home_layout.dart';
 import 'package:souq/modules/authentication/register_screen.dart';
@@ -50,7 +51,14 @@ class LoginScreen extends StatelessWidget {
         },
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.white,
+                statusBarBrightness: Brightness.dark,
+                statusBarIconBrightness: Brightness.dark,
+              ),
+            ),
             body: Center(
               child: SingleChildScrollView(
                 child: Padding(

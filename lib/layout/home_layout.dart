@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:souq/modules/authentication/login_screen.dart';
 import 'package:souq/modules/search/search_screen.dart';
 import 'package:souq/shared/components/components.dart';
@@ -18,7 +19,13 @@ class HomeLayout extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return Scaffold(
           appBar: AppBar(
-            title: Text('Souq'),
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 15.0),
+              child: Text(
+                'SOUQ',
+                style: GoogleFonts.mcLaren(),
+              ),
+            ),
             actions: [
               IconButton(
                 onPressed: () {

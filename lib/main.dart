@@ -47,7 +47,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           // App Theme Provider
-          create: (context) => HomeCubit()..getHomeData(),
+          create: (context) => HomeCubit()
+            ..getHomeData()
+            ..getHomeCategories(),
         ),
       ],
       child: MaterialApp(
