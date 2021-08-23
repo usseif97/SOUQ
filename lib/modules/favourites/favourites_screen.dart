@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:souq/models/product_model.dart';
 import 'package:souq/shared/components/components.dart';
 import 'package:souq/shared/cubit/home_cubit.dart';
 import 'package:souq/shared/cubit/home_states.dart';
-import 'package:souq/shared/styles/colors.dart';
 
 class FavouritesScreen extends StatelessWidget {
   const FavouritesScreen({Key? key}) : super(key: key);

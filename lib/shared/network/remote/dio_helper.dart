@@ -12,17 +12,18 @@ class DioHelper {
     );
   }
 
+  // GET
   static Future<Response> getData({
     required String url,
     Map<String, dynamic>? query,
-    String lang = 'en',
     String? token,
+    String lang = 'en',
   }) async {
     if (token != null) {
       dio.options.headers = {
         'Content-Type': 'application/json',
         'lang': lang,
-        'Authorizarion': token,
+        'Authorization': token,
       };
     } else {
       dio.options.headers = {
@@ -43,6 +44,7 @@ class DioHelper {
     }
   }
 
+  // POST
   static Future<Response> postData({
     required String url,
     required Map<String, dynamic> data,
@@ -51,11 +53,10 @@ class DioHelper {
     String? token,
   }) async {
     if (token != null) {
-      print('Token != NULL');
       dio.options.headers = {
         'Content-Type': 'application/json',
         'lang': lang,
-        'Authorizarion': token,
+        'Authorization': token,
       };
     } else {
       dio.options.headers = {
@@ -71,8 +72,42 @@ class DioHelper {
         queryParameters: query,
       );
     } else {
-      print('QUERY == NULL');
       return await dio.post(
+        url,
+        data: data,
+      );
+    }
+  }
+
+  // UPDATE
+  static Future<Response> putData({
+    required String url,
+    required Map<String, dynamic> data,
+    Map<String, dynamic>? query,
+    String lang = 'en',
+    String? token,
+  }) async {
+    if (token != null) {
+      dio.options.headers = {
+        'Content-Type': 'application/json',
+        'lang': lang,
+        'Authorization': token,
+      };
+    } else {
+      dio.options.headers = {
+        'Content-Type': 'application/json',
+        'lang': lang,
+      };
+    }
+
+    if (query != null) {
+      return await dio.put(
+        url,
+        data: data,
+        queryParameters: query,
+      );
+    } else {
+      return await dio.put(
         url,
         data: data,
       );

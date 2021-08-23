@@ -13,7 +13,7 @@ class LoginCubit extends Cubit<LoginStates> {
   static LoginCubit get(context) => BlocProvider.of(context);
 
   // Login API Handling
-  late LoginModel loginModel;
+  LoginModel? loginModel;
   void userLogin({required String email, required String password}) {
     emit(LoginLoadingState());
     DioHelper.postData(
@@ -25,7 +25,7 @@ class LoginCubit extends Cubit<LoginStates> {
     ).then((value) {
       print(value.data);
       loginModel = LoginModel.fromJson(value.data);
-      emit(LoginSuccessState(loginModel));
+      emit(LoginSuccessState(loginModel!));
     }).catchError((error) {
       print(error.toString());
       emit(LoginErrorState(error.toString()));

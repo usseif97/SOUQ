@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:souq/models/categories_model.dart';
 import 'package:souq/models/change_favourites_model.dart';
 import 'package:souq/models/home_model.dart';
-import 'package:souq/models/product_model.dart';
+import 'package:souq/models/login_model.dart';
 import 'package:souq/modules/cart/cart_screen.dart';
 import 'package:souq/modules/categories/categories_screen.dart';
 import 'package:souq/modules/favourites/favourites_screen.dart';
@@ -130,10 +130,9 @@ class HomeCubit extends Cubit<HomeStates> {
     //print(favourites.toString());
   }
 
-  // Handling Favourites without API
+  // Handling Cart without API
   void changeCart(int productID) {
     emit(HomeSuccessChangeCartState());
-
     homeModel!.data.products.forEach((element) {
       if (element.id == productID) element.inCart = !element.inCart;
     });
@@ -144,5 +143,44 @@ class HomeCubit extends Cubit<HomeStates> {
       });
     });
     //print(favourites.toString());
+  }
+
+  // Handling Profile API
+  LoginModel? userModel;
+  void getUserData() {
+    emit(HomeLoadingUserDataState());
+    DioHelper.getData(
+      url: PROFILE,
+      token: token,
+    ).then((value) {
+      //print(value.data);
+      userModel = LoginModel.fromJson(value.data);
+      emit(HomeSuccessUserDataState());
+    }).catchError((error) {
+      emit(HomeErrorUserDataState(error.toString()));
+    });
+  }
+
+  void updateUserData({
+    required String name,
+    required String email,
+    required String phone,
+  }) {
+    emit(HomeLoadingUpdateUserState());
+    DioHelper.putData(
+      url: UPDATE_PROFILE,
+      token: token,
+      data: {
+        'name': name,
+        'phone': phone,
+        'email': email,
+      },
+    ).then((value) {
+      userModel = LoginModel.fromJson(value.data);
+      //printFullText(userModel!.data.name);
+      emit(HomeSuccessUpdateUserState());
+    }).catchError((error) {
+      emit(HomeErrorUpdateUserState(error.toString()));
+    });
   }
 }

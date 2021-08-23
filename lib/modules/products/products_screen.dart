@@ -4,11 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:souq/models/categories_data_model.dart';
 import 'package:souq/models/categories_model.dart';
 import 'package:souq/models/home_model.dart';
-import 'package:souq/models/product_model.dart';
 import 'package:souq/shared/components/components.dart';
 import 'package:souq/shared/cubit/home_cubit.dart';
 import 'package:souq/shared/cubit/home_states.dart';
-import 'package:souq/shared/styles/colors.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);

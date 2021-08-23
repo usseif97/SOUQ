@@ -50,7 +50,8 @@ class MyApp extends StatelessWidget {
           // App Theme Provider
           create: (context) => HomeCubit()
             ..getHomeData()
-            ..getHomeCategories(),
+            ..getHomeCategories()
+            ..getUserData(),
         ),
       ],
       child: MaterialApp(

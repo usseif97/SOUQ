@@ -45,6 +45,43 @@ Widget defaultTextButton({
       child: Text(text.toUpperCase()),
     );
 
+Widget defaultColoredButton({
+  required String text,
+  Function? onTap,
+}) =>
+    InkWell(
+      onTap: () {
+        if (onTap != null) onTap();
+      },
+      child: Container(
+        width: 200,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              text.toUpperCase(),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25.0,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              defaultColor,
+              Colors.green,
+            ],
+          ),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      ),
+    );
+
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
@@ -152,7 +189,7 @@ Color snackBarColor(snackBarStates state) {
 
 void showSnackBar({
   required BuildContext context,
-  required String content,
+  required String? content,
   required String label,
   required snackBarStates state,
   Function? onpressed,
@@ -160,7 +197,7 @@ void showSnackBar({
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: snackBarColor(state),
-        content: Text(content),
+        content: Text(content!),
         action: SnackBarAction(
           label: label,
           onPressed: () {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:souq/modules/Profile/profile_screen.dart';
 import 'package:souq/modules/authentication/login_screen.dart';
 import 'package:souq/modules/search/search_screen.dart';
 import 'package:souq/shared/components/components.dart';
@@ -37,12 +38,10 @@ class HomeLayout extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  CacheHelper.removeData(key: 'token').then((value) {
-                    navigateToAndFinish(context, LoginScreen());
-                  });
+                  navigateTo(context, ProfileScreen());
                 },
                 icon: Icon(
-                  Icons.account_balance,
+                  Icons.account_circle,
                 ),
               ),
             ],

@@ -1,3 +1,5 @@
+import 'package:souq/models/login_model.dart';
+
 abstract class HomeStates {}
 
 class HomeIntialState extends HomeStates {}
@@ -34,4 +36,22 @@ class HomeSuccessChangeCartState extends HomeStates {}
 class HomeErrorChangCartState extends HomeStates {
   final String error;
   HomeErrorChangCartState(this.error);
+}
+
+class HomeLoadingUserDataState extends HomeStates {}
+
+class HomeSuccessUserDataState extends HomeStates {}
+
+class HomeErrorUserDataState extends HomeStates {
+  final String error;
+  HomeErrorUserDataState(this.error);
+}
+
+class HomeLoadingUpdateUserState extends HomeStates {}
+
+class HomeSuccessUpdateUserState extends HomeStates {}
+
+class HomeErrorUpdateUserState extends HomeStates {
+  final String error;
+  HomeErrorUpdateUserState(this.error);
 }

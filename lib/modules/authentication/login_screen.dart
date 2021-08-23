@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:souq/layout/home_layout.dart';
 import 'package:souq/modules/authentication/register_screen.dart';
 import 'package:souq/shared/components/components.dart';
+import 'package:souq/shared/components/constants.dart';
 import 'package:souq/shared/cubit/login_cubit.dart';
 import 'package:souq/shared/cubit/login_states.dart';
 import 'package:souq/shared/network/local/cache_hlper.dart';
@@ -29,16 +30,18 @@ class LoginScreen extends StatelessWidget {
                 key: 'token',
                 value: state.loginModel.data!.token,
               ).then((value) {
+                token = state.loginModel.data!.token;
                 navigateToAndFinish(context, HomeLayout());
               });
             } else {
               // Login Fall
-              showSnackBar(
-                context: context,
-                content: state.loginModel.message,
-                label: 'Error',
-                state: snackBarStates.ERROR,
-              );
+              if (state.loginModel.message != null)
+                showSnackBar(
+                  context: context,
+                  content: state.loginModel.message,
+                  label: 'Error',
+                  state: snackBarStates.ERROR,
+                );
             }
           } else if (state is LoginErrorState) {
             showSnackBar(
