@@ -24,6 +24,7 @@ void main() async {
   Widget startWidget = OnBoardingScreen();
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
+  print('TOKEN: $token');
 
   if (onBoarding != null) {
     if (token != null)

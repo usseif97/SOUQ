@@ -21,3 +21,17 @@ class HomeErrorCategoriesState extends HomeStates {
   final String error;
   HomeErrorCategoriesState(this.error);
 }
+
+class HomeSuccessChangeFavouritesState extends HomeStates {}
+
+class HomeErrorChangeFavouritesState extends HomeStates {
+  final String error;
+  HomeErrorChangeFavouritesState(this.error);
+}
+
+class HomeSuccessChangeCartState extends HomeStates {}
+
+class HomeErrorChangCartState extends HomeStates {
+  final String error;
+  HomeErrorChangCartState(this.error);
+}

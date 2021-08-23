@@ -35,6 +35,16 @@ class HomeLayout extends StatelessWidget {
                   Icons.search,
                 ),
               ),
+              IconButton(
+                onPressed: () {
+                  CacheHelper.removeData(key: 'token').then((value) {
+                    navigateToAndFinish(context, LoginScreen());
+                  });
+                },
+                icon: Icon(
+                  Icons.account_balance,
+                ),
+              ),
             ],
           ),
           body: cubit.screens[cubit.currentIndex],

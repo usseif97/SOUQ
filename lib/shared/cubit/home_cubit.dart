@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:souq/models/categories_model.dart';
+import 'package:souq/models/change_favourites_model.dart';
 import 'package:souq/models/home_model.dart';
+import 'package:souq/models/product_model.dart';
+import 'package:souq/modules/cart/cart_screen.dart';
 import 'package:souq/modules/categories/categories_screen.dart';
 import 'package:souq/modules/favourites/favourites_screen.dart';
 import 'package:souq/modules/products/products_screen.dart';
@@ -23,6 +26,7 @@ class HomeCubit extends Cubit<HomeStates> {
     ProductsScreen(),
     CategoriesScreen(),
     FavouritesScreen(),
+    CartScreen(),
   ];
   List<BottomNavigationBarItem> bottomItems = [
     BottomNavigationBarItem(
@@ -43,6 +47,12 @@ class HomeCubit extends Cubit<HomeStates> {
       ),
       label: 'Favourites',
     ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.shopping_cart_outlined,
+      ),
+      label: 'My Cart',
+    ),
   ];
   void changeIndex(int index) {
     currentIndex = index;
@@ -60,6 +70,8 @@ class HomeCubit extends Cubit<HomeStates> {
 
   // Handling HomeData API
   HomeModel? homeModel;
+  Map<int, bool>? favourites = {};
+  Map<int, bool>? carts = {};
   void getHomeData() {
     emit(HomeLoadingHomeDataState());
     DioHelper.getData(
@@ -67,8 +79,18 @@ class HomeCubit extends Cubit<HomeStates> {
       token: token,
     ).then((value) {
       homeModel = HomeModel.fromJson(value.data);
-      print(homeModel!.status);
-      //printFullText(homeModel.toString());
+      // fill favourites
+      homeModel!.data.products.forEach((element) {
+        favourites!.addAll({
+          element.id: element.inFavorites,
+        });
+      });
+      // fill carts
+      homeModel!.data.products.forEach((element) {
+        carts!.addAll({
+          element.id: element.inCart,
+        });
+      });
       emit(HomeSuccessHomeDataState());
     }).catchError((error) {
       emit(HomeErrorHomeDataState(error.toString()));
@@ -83,11 +105,44 @@ class HomeCubit extends Cubit<HomeStates> {
       url: GET_CATEGORIES,
     ).then((value) {
       categoriesModel = CategoriesModel.fromJson(value.data);
-      print(categoriesModel!.status);
+      //print(categoriesModel!.status);
       //printFullText(categoriesModel.toString());
       emit(HomeSuccessCategoriesState());
     }).catchError((error) {
       emit(HomeErrorCategoriesState(error.toString()));
     });
+  }
+
+  // Handling Favourites without API
+  ChangeFavouritesModel? changeFavouritesModel;
+  void changeFavourites(int productID) {
+    emit(HomeSuccessChangeFavouritesState());
+
+    homeModel!.data.products.forEach((element) {
+      if (element.id == productID) element.inFavorites = !element.inFavorites;
+    });
+
+    homeModel!.data.products.forEach((element) {
+      favourites!.addAll({
+        element.id: element.inFavorites,
+      });
+    });
+    //print(favourites.toString());
+  }
+
+  // Handling Favourites without API
+  void changeCart(int productID) {
+    emit(HomeSuccessChangeCartState());
+
+    homeModel!.data.products.forEach((element) {
+      if (element.id == productID) element.inCart = !element.inCart;
+    });
+
+    homeModel!.data.products.forEach((element) {
+      carts!.addAll({
+        element.id: element.inCart,
+      });
+    });
+    //print(favourites.toString());
   }
 }

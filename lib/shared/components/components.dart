@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:souq/models/product_model.dart';
+import 'package:souq/shared/cubit/home_cubit.dart';
+import 'package:souq/shared/styles/colors.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -164,6 +167,209 @@ void showSnackBar({
             if (onpressed != null) onpressed();
           },
           textColor: Colors.white,
+        ),
+      ),
+    );
+
+Widget productBuilder(ProductModel model, BuildContext context) => InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+          height: 180,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey,
+                offset: Offset(0.0, 1.0),
+                blurRadius: 10.0,
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        image: DecorationImage(
+                          image: model.image != null
+                              ? NetworkImage(model.image)
+                              : NetworkImage(
+                                  'https://i.stack.imgur.com/mwFzF.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    if (model.discount != 0)
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5.0),
+                        color: Colors.red,
+                        child: Text(
+                          'DISCOUNT',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          model.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '${model.price}\$',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.blue,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            if (model.discount != 0)
+                              Text(
+                                '${model.oldPrice}\$',
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            if (HomeCubit.get(context).favourites != null)
+                              IconButton(
+                                onPressed: () {
+                                  HomeCubit.get(context)
+                                      .changeFavourites(model.id);
+                                },
+                                icon: CircleAvatar(
+                                  radius: 15.0,
+                                  backgroundColor: HomeCubit.get(context)
+                                          .favourites![model.id]!
+                                      ? defaultColor
+                                      : Colors.grey,
+                                  child: Icon(
+                                    Icons.favorite_border_outlined,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                padding: EdgeInsets.zero,
+                              ),
+                            if (HomeCubit.get(context).favourites == null)
+                              IconButton(
+                                onPressed: () {
+                                  HomeCubit.get(context)
+                                      .changeFavourites(model.id);
+                                },
+                                icon: CircleAvatar(
+                                  radius: 15.0,
+                                  backgroundColor: Colors.grey,
+                                  child: Icon(
+                                    Icons.favorite_border_outlined,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                padding: EdgeInsets.zero,
+                              ),
+                          ],
+                        ),
+                        if (HomeCubit.get(context).carts != null)
+                          InkWell(
+                            onTap: () {
+                              HomeCubit.get(context).changeCart(model.id);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    HomeCubit.get(context).carts![model.id]!
+                                        ? 'REMOVE FROM CART'
+                                        : 'ADD TO CART',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    defaultColor,
+                                    Colors.red,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            ),
+                          ),
+                        if (HomeCubit.get(context).carts == null)
+                          InkWell(
+                            onTap: () {
+                              HomeCubit.get(context).changeCart(model.id);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    'ADD TO CART',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.bottomLeft,
+                                  colors: [
+                                    defaultColor,
+                                    Colors.red,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

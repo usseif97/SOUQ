@@ -51,6 +51,7 @@ class DioHelper {
     String? token,
   }) async {
     if (token != null) {
+      print('Token != NULL');
       dio.options.headers = {
         'Content-Type': 'application/json',
         'lang': lang,
@@ -70,6 +71,7 @@ class DioHelper {
         queryParameters: query,
       );
     } else {
+      print('QUERY == NULL');
       return await dio.post(
         url,
         data: data,
