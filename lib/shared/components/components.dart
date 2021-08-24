@@ -6,7 +6,7 @@ import 'package:souq/shared/styles/colors.dart';
 
 Widget defaultButton({
   double width = double.infinity,
-  Color background = Colors.blue,
+  Color background = defaultColor,
   bool isUpperCase = true,
   double radius = 3.0,
   required Function function,
