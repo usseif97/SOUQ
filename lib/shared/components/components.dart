@@ -31,6 +31,13 @@ Widget defaultButton({
           radius,
         ),
         color: background,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            offset: Offset(0.0, 1.0),
+            blurRadius: 10.0,
+          ),
+        ],
       ),
     );
 

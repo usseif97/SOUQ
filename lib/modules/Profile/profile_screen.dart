@@ -132,6 +132,7 @@ class ProfileScreen extends StatelessWidget {
                                 width: 100.0,
                                 text: 'Logout',
                                 radius: 30.0,
+                                background: Colors.redAccent,
                               ),
                             ),
                           ],

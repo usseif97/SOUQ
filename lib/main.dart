@@ -20,7 +20,6 @@ void main() async {
   await CacheHelper
       .init(); // init is static method belong to the class not the object &  SahredPrefernces is static object
 
-  //bool? isDark = CacheHelper.getBoolean(key: 'isDark');
   Widget startWidget = OnBoardingScreen();
   bool? onBoarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
@@ -33,12 +32,10 @@ void main() async {
       startWidget = LoginScreen();
   }
 
-  //runApp(MyApp(isDark));
   runApp(MyApp(startWidget));
 }
 
 class MyApp extends StatelessWidget {
-  //final isDark;
   final startWidget;
   MyApp(this.startWidget);
   // This widget is the root of your application.
