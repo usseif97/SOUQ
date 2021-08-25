@@ -44,7 +44,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          // App Theme Provider
           create: (context) => HomeCubit()
             ..getHomeData()
             ..getHomeCategories()

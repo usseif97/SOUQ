@@ -12,11 +12,11 @@ import 'package:souq/shared/styles/colors.dart';
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
 
-  var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var phoneController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

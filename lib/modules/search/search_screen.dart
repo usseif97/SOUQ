@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:souq/models/search_model.dart';
+import 'package:souq/modules/details/details_screen.dart';
 import 'package:souq/shared/components/components.dart';
 import 'package:souq/shared/cubit/search_cubit.dart';
 import 'package:souq/shared/cubit/search_states.dart';
-import 'package:souq/shared/styles/colors.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -41,6 +41,7 @@ class SearchScreen extends StatelessWidget {
                         onSubmit: (String text) {
                           SearchCubit.get(context).search(text);
                         },
+                        radius: 50.0,
                         label: 'Search',
                         prefix: Icons.search,
                         context: context,
@@ -92,7 +93,9 @@ class SearchScreen extends StatelessWidget {
   }
 
   Widget _searcProductBuilder(Product model, BuildContext context) => InkWell(
-        onTap: () {},
+        onTap: () {
+          navigateTo(context, DetailsScreen(model: model));
+        },
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
@@ -121,10 +124,7 @@ class SearchScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
                           image: DecorationImage(
-                            image: model.image != null
-                                ? NetworkImage(model.image)
-                                : NetworkImage(
-                                    'https://i.stack.imgur.com/mwFzF.png'),
+                            image: NetworkImage(model.image),
                             fit: BoxFit.fill,
                           ),
                         ),

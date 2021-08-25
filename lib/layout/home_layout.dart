@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:souq/modules/Profile/profile_screen.dart';
-import 'package:souq/modules/authentication/login_screen.dart';
 import 'package:souq/modules/search/search_screen.dart';
 import 'package:souq/shared/components/components.dart';
 import 'package:souq/shared/cubit/home_cubit.dart';
 import 'package:souq/shared/cubit/home_states.dart';
-import 'package:souq/shared/network/local/cache_hlper.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({Key? key}) : super(key: key);

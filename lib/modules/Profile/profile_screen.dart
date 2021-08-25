@@ -11,10 +11,10 @@ import 'package:souq/shared/styles/colors.dart';
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
 
-  var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var phoneController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,103 +41,106 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           body: HomeCubit.get(context).userModel != null
-              ? Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: [
-                        if (state is HomeLoadingUpdateUserState)
-                          LinearProgressIndicator(),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        defaultFormField(
-                          controller: nameController,
-                          type: TextInputType.name,
-                          validate: (String value) {
-                            if (value.isEmpty) {
-                              return 'name must not be empty';
-                            }
+              ? SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          if (state is HomeLoadingUpdateUserState)
+                            LinearProgressIndicator(),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          defaultFormField(
+                            controller: nameController,
+                            type: TextInputType.name,
+                            validate: (String value) {
+                              if (value.isEmpty) {
+                                return 'name must not be empty';
+                              }
 
-                            return null;
-                          },
-                          label: 'Name',
-                          prefix: Icons.person,
-                          context: context,
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        defaultFormField(
-                          controller: emailController,
-                          type: TextInputType.emailAddress,
-                          validate: (String value) {
-                            if (value.isEmpty) {
-                              return 'email must not be empty';
-                            }
+                              return null;
+                            },
+                            label: 'Name',
+                            prefix: Icons.person,
+                            context: context,
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          defaultFormField(
+                            controller: emailController,
+                            type: TextInputType.emailAddress,
+                            validate: (String value) {
+                              if (value.isEmpty) {
+                                return 'email must not be empty';
+                              }
 
-                            return null;
-                          },
-                          label: 'Email Address',
-                          prefix: Icons.email,
-                          context: context,
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        defaultFormField(
-                          controller: phoneController,
-                          type: TextInputType.phone,
-                          validate: (String value) {
-                            if (value.isEmpty) {
-                              return 'phone must not be empty';
-                            }
+                              return null;
+                            },
+                            label: 'Email Address',
+                            prefix: Icons.email,
+                            context: context,
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          defaultFormField(
+                            controller: phoneController,
+                            type: TextInputType.phone,
+                            validate: (String value) {
+                              if (value.isEmpty) {
+                                return 'phone must not be empty';
+                              }
 
-                            return null;
-                          },
-                          label: 'Phone',
-                          prefix: Icons.phone,
-                          context: context,
-                        ),
-                        SizedBox(
-                          height: 50.0,
-                        ),
-                        defaultButton(
-                          function: () {
-                            if (formKey.currentState!.validate()) {
-                              HomeCubit.get(context).updateUserData(
-                                name: nameController.text,
-                                phone: phoneController.text,
-                                email: emailController.text,
-                              );
-                            }
-                          },
-                          text: 'update',
-                          radius: 30.0,
-                        ),
-                        Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: defaultButton(
-                                function: () {
-                                  CacheHelper.removeData(key: 'token')
-                                      .then((value) {
-                                    navigateToAndFinish(context, LoginScreen());
-                                  });
-                                },
-                                width: 100.0,
-                                text: 'Logout',
-                                radius: 30.0,
-                                background: Colors.redAccent,
+                              return null;
+                            },
+                            label: 'Phone',
+                            prefix: Icons.phone,
+                            context: context,
+                          ),
+                          SizedBox(
+                            height: 50.0,
+                          ),
+                          defaultButton(
+                            function: () {
+                              if (formKey.currentState!.validate()) {
+                                HomeCubit.get(context).updateUserData(
+                                  name: nameController.text,
+                                  phone: phoneController.text,
+                                  email: emailController.text,
+                                );
+                              }
+                            },
+                            text: 'update',
+                            radius: 30.0,
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: defaultButton(
+                                  function: () {
+                                    CacheHelper.removeData(key: 'token')
+                                        .then((value) {
+                                      navigateToAndFinish(
+                                          context, LoginScreen());
+                                    });
+                                  },
+                                  width: 100.0,
+                                  text: 'Logout',
+                                  radius: 30.0,
+                                  background: Colors.redAccent,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )

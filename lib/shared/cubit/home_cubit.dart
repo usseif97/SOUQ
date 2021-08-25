@@ -161,6 +161,7 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
+  // Handling Update Profile API
   void updateUserData({
     required String name,
     required String email,

@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:souq/models/search_model.dart';
 import 'package:souq/shared/components/constants.dart';
-import 'package:souq/shared/cubit/home_states.dart';
 import 'package:souq/shared/cubit/search_states.dart';
 import 'package:souq/shared/network/end_points.dart';
 import 'package:souq/shared/network/remote/dio_helper.dart';

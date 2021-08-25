@@ -1,5 +1,3 @@
-import 'package:souq/models/login_model.dart';
-
 abstract class HomeStates {}
 
 class HomeIntialState extends HomeStates {}

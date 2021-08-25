@@ -12,7 +12,7 @@ import 'package:souq/shared/network/local/cache_hlper.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
 
-  var formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

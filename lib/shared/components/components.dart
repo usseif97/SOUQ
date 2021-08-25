@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:souq/models/product_model.dart';
+import 'package:souq/modules/details/details_screen.dart';
 import 'package:souq/shared/cubit/home_cubit.dart';
 import 'package:souq/shared/styles/colors.dart';
 
@@ -216,7 +217,9 @@ void showSnackBar({
     );
 
 Widget productBuilder(ProductModel model, BuildContext context) => InkWell(
-      onTap: () {},
+      onTap: () {
+        navigateTo(context, DetailsScreen(model: model));
+      },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Container(
@@ -245,10 +248,7 @@ Widget productBuilder(ProductModel model, BuildContext context) => InkWell(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         image: DecorationImage(
-                          image: model.image != null
-                              ? NetworkImage(model.image)
-                              : NetworkImage(
-                                  'https://i.stack.imgur.com/mwFzF.png'),
+                          image: NetworkImage(model.image),
                           fit: BoxFit.fill,
                         ),
                       ),
